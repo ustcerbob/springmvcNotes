@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springmvc.dao.db.SkuInfoMapper">
+
+	<update id="updateById" parameterType="com.springmvc.bean.SkuInfo">
+		update sku_info
+		<set>
+			<if test="skuName != null">
+				sku_name=#{skuName},
+			</if>
+			<if test="createTime != null">
+				create_time=#{createTime},
+			</if>
+			<if test="price != null">
+				price=#{price},
+			</if>
+			<if test="skuNum != null">
+				sku_num=#{skuNum},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+
+	<update id="updateSkuNumById" parameterType="string">
+		update sku_info
+		set
+		sku_num=sku_num-1
+		where id = #{id}
+		and sku_num > 0
+	</update>
+	
+	<select id="selectById" parameterType="string"
+		resultType="com.springmvc.bean.SkuInfo">
+		select * from sku_info
+		where id = #{id}
+	</select>
+
+	<select id="selectAll" resultType="com.springmvc.bean.SkuInfo">
+		select * from sku_info
+	</select>
+
+</mapper>
